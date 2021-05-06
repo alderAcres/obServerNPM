@@ -1,0 +1,33 @@
+{
+  "name": "observer-js-test",
+  "version": "1.0.0",
+  "description": "A server side debugging tool that accesses the entire lifecycle of the request/ response and visually displays the data. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alderAcres/obServerNPM.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "express",
+    "response",
+    "request",
+    "middleware"
+  ],
+  "author": "Julia C",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alderAcres/obServerNPM/issues"
+  },
+  "homepage": "https://github.com/alderAcres/obServerNPM#readme",
+  "dependencies": {
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "path-to-regexp": "^6.2.0"
+  }
+}

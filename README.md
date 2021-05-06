@@ -13,10 +13,10 @@ Imagine the typical request/ response cycle that you're accustomed to, but in a 
 Then... show usage. How a user would use it!
 
 ```
-import observer from 'observer-js'
+const obServer = require('observer-js')
 
 
-app.use(observer) 
+app.use(obServer) 
 ```
 
 # Options 
