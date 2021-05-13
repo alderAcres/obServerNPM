@@ -31,6 +31,7 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
 module.exports = Layer;
 
 function Layer(path, options, fn) {
+  console.log('inlayer')
   if (!(this instanceof Layer)) {
     return new Layer(path, options, fn);
   }
