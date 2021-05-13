@@ -1,6 +1,6 @@
 {
-  "name": "observer-js-test",
-  "version": "1.0.0",
+  "name": "observer-js-test23",
+  "version": "1.2.8",
   "description": "A server side debugging tool that accesses the entire lifecycle of the request/ response and visually displays the data. ",
   "main": "index.js",
   "scripts": {

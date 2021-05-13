@@ -2,64 +2,43 @@ const express = require('express')
 const Layer = require('./layer') // method that I had to import directly from express
 const app = express()
 const PORT = 5000
+const fs = require('fs')
 // global store for req and response objects
 
-const loggerMid = {
+let observer = {};
+
+observer.appVar = {};
+
+observer.newStack = [];
+
+observer.loggerMid = {
   req: [], 
   res: [], 
   context: [], 
 }
-
 // dummy middleware function 
-const observerMiddleware = (req, res, next) => {
+observer.observerMiddleware = (req, res, next) => {
   console.log('this is our middleware function!')
-  loggerMid.req.push(req)
-  loggerMid.res.push(res)
+  observer.loggerMid.req.push("ourReq")
+  observer.loggerMid.res.push("ourRes")
   next();
 }
 
-const alterMiddlewareStack = (req, res, next) => {
-  console.log('ALTERING STACK')
-  app._router.stack.forEach((layer, index) => {
+observer.js = (req, res, next) => {
+  observer.appVar._router.stack.forEach((layer, index) => {
     if (layer.route) {
-      const newStack = []
       layer.route.stack.forEach((existingMiddleware) => {
         // Create a new express layer for our middleware function 
-        const ourMiddleware = Layer('/', {}, observerMiddleware)
+        const ourMiddleware = Layer('/', {}, observer.observerMiddleware)
         ourMiddleware.method = existingMiddleware.method // attach some required properties
 
-        newStack.push(existingMiddleware) // push the user's middleware to the stack
-        newStack.push(ourMiddleware) // push our middleware to the stack
+        observer.newStack.push(existingMiddleware) // push the user's middleware to the stack
+        observer.newStack.push(ourMiddleware) // push our middleware to the stack
       })
-     layer.route.stack = newStack // reassign the stack
+     layer.route.stack = observer.newStack // reassign the stack
     }
   })
-  next()
 }
 
-app.use(alterMiddlewareStack)
 
-const function2 = (req, res, next) => {
-  console.log('STACK TRACE 1', app._router.stack[3].route)
-  // , app._router.stack[4].route
-  next()
-}
-
-const function3 = (req, res, next) => {
-  console.log('STACK TRACE 2')
-  next()
-}
-
-const function4 = (req, res) => {
-  console.log('STACK TRACE 3')
-  console.log('GLOBAL VARIABLES TO STORE REQUEST/RESPONSE CYCLE')
-  res.send('done')
-}
-
-app.get('/', function2, function3, function4)
-
-app.get('/2', function2, function3, function4)
-
-app.listen(PORT, () => console.log('listening on port ' + PORT))
-
-module.exports.observerjs = observerjs;
+module.exports = observer;
