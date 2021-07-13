@@ -10,7 +10,6 @@ Imagine the typical request/ response cycle that you're accustomed to, but in a 
 # Installation 
 
 `npm i observer-js`
-Then... show usage. How a user would use it!
 
 ```
 const obServer = require('observer-js')
